@@ -1,40 +1,85 @@
-# LostIn – Distraction-Free YouTube Learning Player
+# LostIn — Distraction-Free YouTube Learning Player
 
-## Name & Roll Number
+A React Native (Expo) mobile app that lets you watch YouTube videos and playlists without distractions. Focus on learning with built-in notes, Pomodoro timer, and saved playlists.
 
-Manu Pal – 2024-B-06122005
+## Features
 
-## Problem Statement
+- **Distraction-free playback**: YouTube embeds without sidebar recommendations or comments
+- **Notes**: Auto-saved notes per video/playlist (saves every 1.5 seconds)
+- **Pomodoro Timer**: 25/5 minute focus cycles with quick duration presets
+- **Saved Playlists**: Save and quickly access your favorite playlists
+- **Smart URL parsing**: Handles all YouTube URL formats (youtu.be, watch?v=, playlists, shorts)
 
-Students often use YouTube to study, but the platform displays recommendations, ads, shorts, and comments alongside the main video. These distractions reduce focus and productivity. There is a need for a solution that allows students to watch educational videos without interruptions, ensuring a better learning experience.
+## Setup
 
-## Proposed Solution / Idea
+1. Install dependencies:
+```bash
+npm install
+```
 
-LostIn is a mobile application built using React Native that allows students to paste a YouTube video or playlist link and watch it in a clean, distraction-free environment. The app uses a WebView to load YouTube videos without showing recommendations, comments, or ads. Users can focus solely on the content they need to learn.
+2. Start the Expo development server:
+```bash
+expo start
+```
 
-## Key Features
+3. Run on your device:
+   - Scan the QR code with Expo Go (iOS) or Camera (Android)
+   - Or press `i` for iOS simulator, `a` for Android emulator
 
-- Distraction-free YouTube player (no recommendations, comments, or ads)
-- Support for single videos and playlists
-- Clean, minimal UI with centered input and easy navigation
-- Functional in full-screen mode for maximum focus
-- Optional notes section for students to take notes while watching
-- Optional Pomodoro-style study timer for focused learning sessions
+## Usage
 
-## Target Users / Audience
+### Watching Videos
 
-- Students using YouTube for learning
-- Teachers or educational content creators who want focused learning tools for their audience
-- Self-learners seeking a distraction-free study environment
+1. On the Home screen, paste any YouTube URL:
+   - Single video: `https://www.youtube.com/watch?v=dQw4w9WgXcQ`
+   - Short link: `https://youtu.be/dQw4w9WgXcQ`
+   - Playlist: `https://www.youtube.com/playlist?list=PL...`
+   - Shorts: `https://www.youtube.com/shorts/VIDEO_ID`
 
-## Technology Stack
+2. Tap "Open" to launch the distraction-free player
 
-- Frontend / Mobile App: React Native, Expo
-- Video Player: react-native-webview for embedding YouTube videos
-- Styling: React Native Stylesheets, modern minimalist design
+### Player Screen
 
-## Expected Outcome
+- **Notes button**: Opens a notes panel that auto-saves as you type
+- **Save button**: Saves the current video/playlist to your Home screen
+- **Timer button**: Opens Pomodoro timer controls
 
-A functional mobile application that allows students to paste YouTube video or playlist links and watch them in a distraction-free player. The app provides a clean interface, optional note-taking, and study timer features to enhance focus and productivity.
+### Notes
 
+Notes are stored locally per video/playlist using AsyncStorage. Each video or playlist has its own notes that persist between sessions.
 
+### Testing
+
+- **Single video flow**: Paste `https://youtu.be/dQw4w9WgXcQ` → Open → Player loads
+- **Playlist flow**: Paste a playlist URL → Open → Player loads playlist embed
+- **Notes storage**: Open any video, add notes, close and reopen to verify persistence
+- **Saved playlists**: Save a playlist, return to Home, tap saved item to reopen
+
+## Project Structure
+
+```
+/screens
+  HomeScreen.js      - URL input and saved playlists list
+  PlayerScreen.js    - WebView player with toolbar
+/components
+  NotesPanel.js      - Notes editor with auto-save
+  Pomodoro.js        - Timer with 25/5 cycle
+/utils
+  youtube.js         - URL parsing and embed URL building
+/styles
+  global.js          - Shared colors and styles
+App.js               - Navigation setup
+```
+
+## Tech Stack
+
+- React Native (Expo)
+- React Navigation (Stack)
+- react-native-webview
+- @react-native-async-storage/async-storage
+
+## Notes
+
+- All data is stored locally on your device
+- No external API keys required
+- Works offline for saved playlists (requires internet for video playback)
